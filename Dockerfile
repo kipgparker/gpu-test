@@ -1,5 +1,8 @@
-# Use CUDA-compatible Python base image
-FROM python:3.9-slim
+# Use PyTorch CUDA base image
+FROM pytorch/pytorch:2.5.0-cuda12.4-cudnn9-runtime
+
+# Set Python environment variables
+ENV PYTHONUNBUFFERED=1
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -13,7 +16,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Copy the application code
 COPY main.py .
@@ -23,4 +26,3 @@ EXPOSE 8080
 
 # Command to run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
-
