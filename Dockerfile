@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED=1
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
-    git \
+    # git \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
@@ -17,12 +17,11 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt \
-    transformers
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Download Huggingface model
 # Replace "model-name" with your desired model
-RUN python3 -c "from transformers import AutoModel; AutoModel.from_pretrained('Tap-M/Luna-AI-Llama2-Uncensored', cache_dir='/app/model')"
+# RUN python3 -c "from transformers import AutoModel; AutoModel.from_pretrained('Tap-M/Luna-AI-Llama2-Uncensored', cache_dir='/app/model')"
 
 # Copy the application code
 COPY main.py .
