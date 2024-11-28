@@ -18,3 +18,4 @@ def info(request: Request):
     "cuda_available": torch.cuda.is_available(),
     "gpu_name": torch.cuda.get_device_name()
   }
+
